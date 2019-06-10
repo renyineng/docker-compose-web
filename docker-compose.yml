@@ -1,0 +1,72 @@
+version: '3'
+services:
+    node:
+        container_name: node
+        image: "node:alpine"
+        networks:
+            - consul-cluster
+        volumes:
+            - ${HOME}/wwwroot:/data/wwwroot
+        ports:
+            - "8000:8000"
+            - "8001:8001"
+            - "8002:8002"
+        tty: true
+    mysql:
+        container_name: mysql
+        image: "mysql:latest"
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        networks:
+            - consul-cluster
+        volumes:
+            - ./mysql/conf.d/docker.cnf:/etc/mysql/conf.d/docker.cnf
+            # - ./mysql/my.cnf:/etc/mysql/my.cnf
+        ports:
+            - "3307:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=pass_123456
+    redis:
+        container_name: redis
+        image: "redis:latest"
+        networks:
+            - consul-cluster
+        ports:
+            - "6379:6379"
+    openresty:
+        container_name: openresty
+        image: "openresty/openresty:centos"
+        build: ./openresty
+        networks:
+            - consul-cluster
+        volumes:
+            - ./openresty/conf.d:/etc/nginx/conf.d
+            - ./openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+            - ${HOME}/grpc:/data/grpc
+            - ${HOME}/www:/data/www
+            - ${HOME}/wwwroot:/data/wwwroot
+            - ./php/phpsocket:/var/run
+        ports:
+            - "80:80"
+    php:
+        container_name: php
+        build: ./php
+        image: "php7.3"
+        networks:
+            - consul-cluster
+        volumes:
+            - ./php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+            - ./php/php.ini:/usr/local/etc/php/php.ini
+            - ${HOME}/grpc:/data/grpc
+            - ${HOME}/www:/data/www
+            - ${HOME}/vue:/data/vue
+            - ${HOME}/wwwroot:/data/wwwroot
+            - ${HOME}/www/go:/data/go
+            - ./php/php-fpm.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+            - ./php/phpsocket:/var/run
+        ports:
+            - "9000:9000"
+volumes:
+    phpsocket:
+networks:
+  consul-cluster:
+    

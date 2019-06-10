@@ -1,0 +1,1 @@
+```RUN /usr/local/openresty/luajit/bin/luarocks install <rock>```

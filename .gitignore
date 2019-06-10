@@ -1,0 +1,4 @@
+.DS_Store
+logs/*
+openresty/conf.d/*
+nginx/conf.d/*
