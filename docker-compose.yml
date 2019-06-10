@@ -6,7 +6,7 @@ services:
         networks:
             - consul-cluster
         volumes:
-            - ${HOME}/wwwroot:/data/wwwroot
+            - ${HOME}/www:/data/www
         ports:
             - "8000:8000"
             - "8001:8001"
@@ -41,9 +41,8 @@ services:
         volumes:
             - ./openresty/conf.d:/etc/nginx/conf.d
             - ./openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
-            - ${HOME}/grpc:/data/grpc
             - ${HOME}/www:/data/www
-            - ${HOME}/wwwroot:/data/wwwroot
+            - ${HOME}/www:/data/www
             - ./php/phpsocket:/var/run
         ports:
             - "80:80"
@@ -56,11 +55,7 @@ services:
         volumes:
             - ./php/php-fpm.conf:/usr/local/etc/php-fpm.conf
             - ./php/php.ini:/usr/local/etc/php/php.ini
-            - ${HOME}/grpc:/data/grpc
             - ${HOME}/www:/data/www
-            - ${HOME}/vue:/data/vue
-            - ${HOME}/wwwroot:/data/wwwroot
-            - ${HOME}/www/go:/data/go
             - ./php/php-fpm.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
             - ./php/phpsocket:/var/run
         ports:
