@@ -42,7 +42,7 @@ services:
             - ./openresty/conf.d:/etc/nginx/conf.d
             - ./openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
             - ${HOME}/www:/data/www
-            - ${HOME}/www:/data/www
+            - ${HOME}/wwwroot:/data/wwwroot
             - ./php/phpsocket:/var/run
         ports:
             - "80:80"
