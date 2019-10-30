@@ -20,13 +20,10 @@ RUN apt-get update && apt-get install -y \
 
 ADD bin/composer /usr/local/bin/composer
 RUN apt-get install -y git
-RUN composer config -g repo.packagist composer https://packagist.laravel-china.org \
-    && git config --global user.name "renyineng" && git config --global user.email "renyineng@100tal.com"
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+#此处可以设置git用户
+#RUN git config --global user.name "author" && git config --global user.email "author@admin.com" 
 
-WORKDIR /data/wwwroot
+WORKDIR /data/www
 RUN composer global require laravel/installer
-ENV PATH ~/.composer/bin:/root/go/bin:$PATH
-
-#composer create-project --prefer-dist laravel/laravel blog "5.5.*"
-# RUN docker-php-ext-install zip 
-# RUN wget https://phar.phpunit.de/phpunit-7.0.phar && chmod +x phpunit-7.0.phar && mv phpunit-7.0.phar /usr/local/bin/phpunit
+ENV PATH ~/.composer/bin:$PATH

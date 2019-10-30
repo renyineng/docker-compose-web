@@ -16,4 +16,3 @@ cd /data/grpc/learn_protos/users
 protoc  --php_out=/data/grpc/laravel_learn/app/Services/Grpc   --grpc_out=/data/grpc/laravel_learn/app/Services   --plugin=protoc-gen-grpc=/data/grpc/grpc_php_plugin  users.proto
 
 ```docker exec -it php /usr/local/protobuf/bin/protoc --proto_path=/data/grpc/laravel_learn/app/Services/Grpc/Lib/Protos   --php_out=./app/Services/Grpc/Lib   --grpc_out=./app/Services/Grpc/Lib   --plugin=protoc-gen-grpc=/usr/bin/grpc_php_plugin   /app/Services/Grpc/Lib/Protos/helloworld.proto```
-adsfa

@@ -10,7 +10,6 @@ services:
         ports:
             - "8000:8000"
             - "8001:8001"
-            - "8002:8002"
         tty: true
     mysql:
         container_name: mysql
@@ -26,7 +25,7 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=pass_123456
     redis:
-        container_name: redis
+
         image: "redis:latest"
         networks:
             - consul-cluster
@@ -42,7 +41,6 @@ services:
             - ./openresty/conf.d:/etc/nginx/conf.d
             - ./openresty/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
             - ${HOME}/www:/data/www
-            - ${HOME}/wwwroot:/data/wwwroot
             - ./php/phpsocket:/var/run
         ports:
             - "80:80"
