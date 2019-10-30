@@ -21,7 +21,7 @@ services:
             - ./mysql/conf.d/docker.cnf:/etc/mysql/conf.d/docker.cnf
             # - ./mysql/my.cnf:/etc/mysql/my.cnf
         ports:
-            - "3307:3306"
+            - "3306:3306"
         environment:
             - MYSQL_ROOT_PASSWORD=pass_123456
     redis:
